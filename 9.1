@@ -1,0 +1,87 @@
+/* functions.cpp */
+
+
+#include "functions.h"
+void sortArray(int arr[], int size)
+{
+    //remember arrays and vectors start at position zero
+    //arrays are passed by reference, so changes in the function effect the calling function
+    //Bubble Sort
+    for (int i = 0; i < size; ++i)
+    {
+        for (int j = 0; j < size-i-1; ++j)
+        {
+            // Comparing consecutive data and switching values if value at j > j+1.
+            if (arr[j] > arr[j+1])
+            {
+                arr[j] = arr[j]+arr[j+1];
+                arr[j+1] = arr[j]-arr[j + 1];
+                arr[j] = arr[j]-arr[j + 1];
+            }
+        }
+        // Value at n-i-1 will be maximum of all the values below this index.
+    }
+}
+
+//Using a selection sort
+void sortVector(vector<int> &vec)
+{
+    for (int i = 0; i < (int) vec.size(); ++i)
+    {
+
+        // Find index of smallest remaining element
+        int indexSmallest = i;
+        for (int j = i + 1; j < (int) vec.size(); ++j)
+            if (vec[j] < vec[indexSmallest])
+                indexSmallest = j;
+
+
+        // Swap numbers[i] and numbers[indexSmallest]
+        int temp = vec[i];
+        vec[i] = vec[indexSmallest];
+        vec[indexSmallest] = temp;
+    }
+    
+    // *************************************************************
+    
+    /* functions.h */ 
+    
+#ifndef FUNCTIONS_H
+#define FUNCTIONS_H
+#include <vector>
+using namespace std;
+
+void sortArray(int arr[], int size);
+void sortVector(vector<int> &vec);
+#endif
+
+// **********************************************************************
+
+/* main.cpp */
+
+#include <iostream>
+#include <vector>
+#include "functions.h"
+using namespace std;
+
+
+int main() {
+
+    int array1[]={5,7,2,3};
+    vector<int> vec1 = {4,1,5,2};
+
+    sortArray (array1, 4);
+    sortVector (vec1);
+
+    cout << "After sorting array...\n";
+    for (int i=0; i < 4; i++)
+        cout << array1[i] << " ";
+    cout << endl;
+
+    cout << "After sorting vector...\n";
+    for (int i=0; i < 4; i++)
+        cout << vec1[i] << " ";
+    cout << endl;
+
+    return 0;
+}
